@@ -1,20 +1,20 @@
 #include <unistd.h>
 
-void ft_putstr_non_printable(char *str)
+void	ft_putstr_non_printable(char *str)
 {
-	char *hexa_src;
-	char hexa[3];
-	unsigned char c;
+	char			*hexa_src;
+	char			hexa[3];
+	unsigned char	c;
 
-	hexa_src = "0123456789abcdef";	
+	hexa_src = "0123456789abcdef";
 	hexa[0] = '\\';
-	while(*str)
+	while (*str)
 	{
 		c = (unsigned char)*str;
-		if(c < 32 || c == 127)
+		if (c < 32 || c == 127)
 		{
 			hexa[1] = hexa_src[c / 16];
-        		hexa[2] = hexa_src[c % 16];
+			hexa[2] = hexa_src[c % 16];
 			write(1, hexa, 3);
 		}
 		else
@@ -24,3 +24,9 @@ void ft_putstr_non_printable(char *str)
 		str++;
 	}
 }
+
+/*int	main(void)
+{
+	ft_putstr_non_printable("\vCoucou\n tu \tvas \rbien \f?");
+	write(1, "\n", 1);
+}*/

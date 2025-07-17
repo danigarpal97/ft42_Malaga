@@ -1,19 +1,25 @@
-char *ft_strncat(char *dest, char *src, unsigned int nb)
+char	*ft_strncat(char *dest, char *src, unsigned int nb)
 {
-	char *result;
+	char	*result;
 
+	if (nb < 1)
+		return (dest);
 	result = dest;
-	while(*dest)
-	{
+	while (*dest)
 		dest++;
-	}
-	while(nb > 0 && *src)
-	{
-		*dest = *src;
-		dest++;
-		src++;
-		nb--;
-	}
+	while (nb-- > 0 && *src)
+		*dest++ = *src++;
 	*dest = '\0';
-	return result;
+	return (result);
 }
+
+/*#include <stdio.h>
+#include <string.h>
+int	main(void)
+{
+	char str1[20] = "Hola ";
+	char str2[20] = "Hola ";
+
+	printf("original:\t %s\n", strncat(str1, "mundo!", 3));
+	printf("mio:\t\t %s\n", ft_strncat(str2, "mundo!", 3));
+}*/

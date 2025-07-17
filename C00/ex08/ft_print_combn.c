@@ -5,47 +5,50 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	ft_print_number(int *number, int n, int last)
+void	ft_print_digits(int *digits, int n)
 {
 	int	i;
 
 	i = 0;
 	while (i < n)
 	{
-		ft_putchar(number[i] + '0');
+		ft_putchar(digits[i] + '0');
 		i++;
 	}
-	if (number[0] != last)
+	if (digits[0] != 10 - n)
 		write(1, ", ", 2);
 }
 
-void	ft_recursive(int *number, int n, int index)
+void	ft_generate(int *digits, int pos, int n)
 {
 	int	start;
+	int	i;
 
 	start = 0;
-	if (index > 0)
-		start = number[index - 1] + 1;
-	while (start <= 9)
+	if (pos > 0)
+		start = digits[pos - 1] + 1;
+	i = start;
+	while (i <= 9)
 	{
-		number[index] = start;
-		if (index == n - 1)
-			ft_print_number(number, n, 10 - n);
+		digits[pos] = i;
+		if (pos == n - 1)
+			ft_print_digits(digits, n);
 		else
-			ft_recursive(number, n, index + 1);
-		start++;
+			ft_generate(digits, pos + 1, n);
+		i++;
 	}
 }
 
 void	ft_print_combn(int n)
 {
-	int	number[9];
+	int	digits[9];
 
-	ft_recursive(number, n, 0);
+	if (n > 0 && n < 10)
+		ft_generate(digits, 0, n);
 }
 
-int	main(void)
+/*int	main(void)
 {
-	ft_print_combn(9);
+	ft_print_combn(4);
 	return (0);
-}
+}*/

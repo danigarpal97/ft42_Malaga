@@ -2,20 +2,27 @@
 
 int	ft_invalid_base(char *base)
 {
-	char	*b;
+	int	basel;
+	int	i;
+	int	j;
 
-	while (*base)
+	i = 0;
+	basel = 0;
+	while (base[basel])
 	{
-		if (*base == '+' || *base == '-')
+		if (base[basel] == '+' || base[basel] == '-')
 			return (1);
-		b = base + 1;
-		while (*b)
-		{
-			if (*base == *b)
+		basel++;
+	}
+	if (basel < 2)
+		return (1);
+	while (i < basel - 1)
+	{
+		j = i + 1;
+		while (j < basel)
+			if (base[i] == base[j++])
 				return (1);
-			b++;
-		}
-		base++;
+		i++;
 	}
 	return (0);
 }
@@ -23,30 +30,33 @@ int	ft_invalid_base(char *base)
 void	ft_putnbr_base(int nbr, char *base)
 {
 	int		l;
-	int		wrong;
-	char	*b;
+	long	n;
+	char	c;
 
 	l = 0;
-	b = base;
-	while (*b++)
+	n = nbr;
+	while (base[l])
 		l++;
-	wrong = ft_invalid_base(base);
-	if (l < 2 || wrong == 1)
+	if (ft_invalid_base(base) == 1)
 		return ;
-	if (nbr < 0)
-		write(1, "-", 1);
-	if (nbr >= l)
+	if (n < 0)
 	{
-		ft_putnbr_base(nbr / l, base);
+		write(1, "-", 1);
+		n = -n;
 	}
-	write(1, &base[nbr % l], 1);
+	if (n >= l)
+	{
+		ft_putnbr_base(n / l, base);
+	}
+	c = base[n % l];
+	write(1, &c, 1);
 }
 
 /*int	main(void)
 {
 	int	a;
 
-	a = 256;
+	a = 63;
 	ft_putnbr_base(a, "0123456789");
 	write(1, "\n", 1);
 	ft_putnbr_base(a, "0123456789abcdef");
